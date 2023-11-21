@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap demo</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+    />
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+      * {
+        font-family: "Poppins", sans-serif;
+      }
+    </style>
+  </head>
+  <body class="bg-body-secondary">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid" style="margin: 0 50px">
+        <img
+          class="navbar-brand"
+          width="50"
+          height="40"
+          src="img/brandred.png"
+          alt=""
+        />
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarScroll"
+          aria-controls="navbarScroll"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarScroll">
+          <ul
+            class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll"
+            style="--bs-scroll-height: 100px"
+          >
+            <li class="nav-item">
+              <a class="nav-link fw-bold" aria-current="page" href="index.html"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-bold" href="myProject.html">Add Project</a>
+            </li>
+          </ul>
+          <form class="d-flex" role="search">
+            <a
+              href="contact.html"
+              class="btn btn-dark fw-semibold"
+              type="submit"
+            >
+              Contact Me
+            </a>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <!-- EndNavbar -->
+
+    <!-- Home -->
+    <div
+      class="card my-3 mx-auto px-5 py-5"
+      style="
+        max-width: 1000px;
+        box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2),
+          0 3px 10px 0 rgba(0, 0, 0, 0.19);
+      "
+    >
+      <div class="row g-0" style="display: flex; justify-content: space-around">
+        <div class="col-md-8" style="width: 500px">
+          <div class="card-body">
+            <h3 class="card-title">Welcome To My Hut!</h3>
+            <p class="card-text" style="text-align: justify">
+              Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+              Recusandae cupiditate repudiandae tempore magni hic expedita odio
+              consequuntur maxime? Voluptatem, odio laboriosam deleniti maiores
+              nobis voluptatibus molestiae repellat minima ab veniam itaque ut
+              fugit illum asperiores molestias. Suscipit, commodi aliquid odio
+              beatae, quis cumque inventore dolores cupiditate vel expedita
+              nobis quas.
+            </p>
+            <div class="row column-gap-3">
+              <button
+                class="col-6 btn btn-dark"
+                type="submit"
+                style="width: 150px; margin-left: 12px"
+              >
+                Contact Me
+              </button>
+              <a
+                class="col-6 link-dark link-underline-opacity-0"
+                style="margin-top: 5px"
+                href=""
+                >Download CV <i class="fa-solid fa-download fa-xl"></i>
+              </a>
+            </div>
+            <div class="icon py-3">
+              <i
+                style="margin-right: 10px"
+                class="fa-brands fa-linkedin fa-xl"
+              ></i>
+              <i
+                style="margin-right: 10px"
+                class="fa-brands fa-facebook fa-xl"
+              ></i>
+              <i
+                style="margin-right: 10px"
+                class="fa-brands fa-instagram fa-xl"
+              ></i>
+              <i
+                style="margin-right: 10px"
+                class="fa-brands fa-github fa-xl"
+              ></i>
+              <i class="fa-brands fa-whatsapp fa-xl"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 text-center">
+          <div
+            class="card px-3 py-3"
+            style="
+              box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2),
+                0 3px 10px 0 rgba(0, 0, 0, 0.19);
+            "
+          >
+            <img
+              src="/img/DSC_0137 34.jpg"
+              class="img-fluid rounded-start"
+              alt="..."
+            />
+            <h5 class="card-title" style="margin-top: 10px">
+              Febrilania Nur Islami
+            </h5>
+            <p class="card-text">Fullstack Developer</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- End Home -->
+
+    <script src="javascript/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
