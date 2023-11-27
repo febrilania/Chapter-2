@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Bootstrap demo</title>
+    <title>Home</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css" />
     <link
       rel="stylesheet"
@@ -87,7 +87,7 @@
               </div>
               <div class="col-md-8" style="margin-top: 8px">
                 <a
-                  href="/detail-project/id"
+                  href="#"
                   class="linkDownload link-dark link-underline-opacity-0"
                 >Download CV <i class="fa-solid fa-download"></i></a>
               </div>
@@ -136,6 +136,46 @@
     </div>
 
     <!-- End Home -->
+
+    {{! my Projects }}
+    <div id="content">
+      <div class="row mx-auto" style="max-width: 1000px">
+        {{#each data}}
+          <div class="col-md-4">
+            <div class="container d-flex justify-content-center my-5">
+              <div class="card" style="width: 18rem;">
+                <img src="img/DSC_0137 34.jpg" class="card-img-top" alt="..." />
+                <div class="card-body">
+                  <h5 class="card-title"><a
+                      href="/detail-project/{{@index}}"
+                    >{{this.name}}</a></h5>
+                  <h6 class="card-text">{{this.startDate}}
+                    |
+                    {{this.endDate}}</h6>
+                  <p class="card-text">{{this.description}}</p>
+                  <form
+                    action="/delete-myProject/{{@index}}"
+                    method="post"
+                    style="text-align: center;"
+                  >
+                    <a
+                      style="width: 7.5rem;"
+                      class="btn btn-secondary"
+                      href="update-project/{{@index}}"
+                    >Edit</a>
+                    <button
+                      class="btn btn-danger"
+                      style="width: 7.5rem;"
+                    >Delete</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        {{/each}}
+      </div>
+    </div>
+    {{! end my projects }}
 
     <script src="javascript/bootstrap.bundle.min.js"></script>
   </body>

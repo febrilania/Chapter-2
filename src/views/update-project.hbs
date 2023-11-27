@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Add Project</title>
+    <title>Update Project</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css" />
     <link
       rel="stylesheet"
@@ -22,7 +22,7 @@
           class="navbar-brand"
           width="50"
           height="40"
-          src="img/brandred.png"
+          src="/img/brandred.png"
           alt=""
         />
         <button
@@ -58,22 +58,38 @@
     </nav>
     <!-- End Navbar  -->
     <!-- Form Add Project -->
-    <h3 class="text-center my-3">Add My Project</h3>
+    <h3 class="text-center my-3">Update Project</h3>
     <div class="form my-3 mx-auto" style="width: 70%">
-      <form method="post" action="/add-myproject">
+      <form method="post" action="/update-project">
         <div class="mb-3">
+          <input type="hidden" name="id" value="{{data.id}}" />
           <label for="" class="form-label"> Project Name </label>
-          <input type="text" class="form-control" name="name" />
+          <input
+            type="text"
+            class="form-control"
+            name="name"
+            value="{{data.name}}"
+          />
         </div>
         <div class="mb-3">
           <div class="row">
             <div class="col-6">
               <label for="" class="form-label">Start Date</label>
-              <input type="date" class="form-control" name="startDate" />
+              <input
+                type="date"
+                class="form-control"
+                name="startDate"
+                value="{{data.startDate}}"
+              />
             </div>
             <div class="col-6">
               <label for="" class="form-label">End Date</label>
-              <input type="date" class="form-control" name="endDate" />
+              <input
+                type="date"
+                class="form-control"
+                name="endDate"
+                value="{{data.endDate}}"
+              />
             </div>
           </div>
         </div>
@@ -84,7 +100,7 @@
             rows="10"
             class="form-control"
             name="description"
-          ></textarea>
+          >{{data.description}}</textarea>
         </div>
         <div class="mb-3">
           <label for="" class="form-label"> Technologies </label>
@@ -118,7 +134,7 @@
             class="btn btn-dark"
             style="width: 120px; border-radius: 20px"
           >
-            Submit
+            Update
           </button>
         </div>
       </form>
