@@ -12,7 +12,11 @@
     <style>
       @import
       url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-      * { font-family: "Poppins", sans-serif; }
+      * { font-family: "Poppins", sans-serif; } .nav-link:hover{ color: orange;
+      } .btn-dark:hover{ background-color: gray; } .btn-secondary:hover{
+      background-color: black; } .btn-danger:hover{ background-color: darkred; }
+      .linkDownload.link-dark:hover{ color: orange; }
+
     </style>
   </head>
   <body class="bg-body-secondary">
@@ -49,14 +53,31 @@
               <a class="nav-link fw-bold" href="/add-myproject">Add Project</a>
             </li>
           </ul>
-          <a href="/contact" class="btn btn-dark fw-semibold" type="submit">
+          {{#if isLogin}}
+            <a class="nav-link mx-4">Welcome, {{user.name}}</a>
+            <a href="/logout" class="nav-link mx-2">Log Out</a>
+          {{else}}
+            <a href="/login" class="nav-link mx-2">Log in</a>
+            <a href="/register" class="nav-link mx-2">Register</a>
+          {{/if}}
+          <a
+            href="/contact"
+            class="btn btn-dark fw-semibold mx-2"
+            type="submit"
+          >
             Contact Me
           </a>
         </div>
       </div>
     </nav>
     <!-- EndNavbar -->
-
+    {{#if messages.success}}
+      <div class="alert alert-success" role="alert">
+        <div class="container">
+          {{messages.success}}
+        </div>
+      </div>
+    {{/if}}
     <!-- Home -->
     <div
       class="card my-3 mx-auto px-5 py-5"
@@ -144,7 +165,8 @@
               <div class="card py-2 px-2" style="width: 18rem;">
                 <img src="img/{{this.image}}" class="card-img-top" alt="..." />
                 {{! <div class="card-body"> }}
-                <h5 class="card-title"><a
+                <h5 class="card-title my-3"><a
+                    class="nav-link"
                     href="/detail-project/{{this.id}}"
                   >{{this.name}}</a></h5>
                 <h6 class="card-text">{{this.startDate}}

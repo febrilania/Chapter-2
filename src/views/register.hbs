@@ -2,7 +2,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Detail Project</title>
+    <title>Home</title>
     <link rel="stylesheet" href="../css/bootstrap.min.css" />
     <link
       rel="stylesheet"
@@ -26,8 +26,8 @@
           class="navbar-brand"
           width="50"
           height="40"
-          src="/img/brandred.png"
-          alt="logo dumbways"
+          src="img/brandred.png"
+          alt=""
         />
         <button
           class="navbar-toggler"
@@ -52,23 +52,41 @@
               <a class="nav-link fw-bold" href="/add-myproject">Add Project</a>
             </li>
           </ul>
-          
-            <a href="/contact" class="btn btn-dark fw-semibold" type="submit">
-              Contact Me
-            </a>
-          
+          <a href="/login" class="nav-link mx-3">Log in</a>
+          <a href="/contact" class="btn btn-dark fw-semibold" type="submit">
+            Contact Me
+          </a>
         </div>
       </div>
     </nav>
     <!-- EndNavbar -->
-
-    <div class="container py-3">
-      <h1>{{data.name}}</h1>
-        <p>{{data.startDate}} s/d {{data.endDate}}</p>
-        <img src="/img/{{data.image}}" alt="">
-        <h4>technologies</h4>
-        <p>{{data.technologies}}</p>
-        <p style="text-align: justify; width:700px">{{data.description}}</p>
+{{#if messages.danger}}
+  <div class="alert alert-danger" role="alert">
+    <div class="container">
+      {{messages.danger}}
     </div>
-    <script src="../javascript/bootstrap.bundle.min.js"></script>
+  </div>
+  {{/if}}
+
+  <div class="container d-flex justify-content-center">
+    <div class="w-50">
+      <h3 class="text-center mt-5">REGISTER</h3>
+      <form action="/register" method="POST">
+        <div class="mb-3">
+          <label for="username" class="form-label">Name</label>
+          <input type="text" name="name" class="form-control" id="username" aria-describedby="emailHelp" />
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" name="email" class="form-control" id="email" aria-describedby="emailHelp" />
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" name="password" id="password" />
+        </div>
+        <button type="submit" class="btn btn-danger mt-3 px-5">Submit</button>
+      </form>
+    </div>
+  </div>
+
     </body>

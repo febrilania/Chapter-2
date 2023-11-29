@@ -7,6 +7,9 @@ const port = 3000;
 const config = require("./src/config/config.json");
 const { QueryTypes } = require("sequelize");
 const { Sequelize } = require("sequelize");
+const bcrypt = require("bcrypt");
+const session = require("express-session");
+const flash = require("express-flash");
 
 const sequelize = new Sequelize(config.development);
 
@@ -15,29 +18,78 @@ app.set("views", path.join(__dirname, "src/views"));
 
 app.use(express.static("src/assets"));
 app.use(express.urlencoded({ extended: false })); //membaca data yang dikirim oleh client
+app.use(flash());
+app.use(
+  session({
+    name: "data",
+    secret: "rahasiabanget",
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      secure: false,
+      maxAge: 1000 * 60 * 60 * 24,
+    },
+  })
+);
 
-app.get("/", home);
+const requireLogin = (req, res, next) => {
+  if (!req.session.isLogin) {
+    req.flash("danger", "Anda harus login untuk mengakses halaman ini.");
+    return res.redirect("/login");
+  }
+  next();
+};
 
-app.get("/add-myproject", addprojectView);
+app.use((req, res, next) => {
+  // Middleware untuk memastikan session tersedia di seluruh rute
+  res.locals.user = req.session.user;
+  next();
+});
 
-app.post("/add-myproject", addproject);
+app.get("/", requireLogin, home);
 
-app.post("/delete-myproject/:id", deleteProject);
+app.get("/add-myproject", requireLogin, addprojectView);
 
-app.get("/update-project/:id", updateProjectview);
-app.post("/update-project", updateProject);
+app.post("/add-myproject", requireLogin, addproject);
 
-app.get("/detail-project/:id", detailproject);
+app.post("/delete-myproject/:id", requireLogin, deleteProject);
 
-app.get("/contact", contact);
+app.get("/update-project/:id", requireLogin, updateProjectview);
+app.post("/update-project", requireLogin, updateProject);
+
+app.get("/detail-project/:id", requireLogin, detailproject);
+
+app.get("/contact", requireLogin, contact);
+
+app.get("/register", registerView);
+app.post("/register", register);
+app.get("/login", loginView);
+app.post("/login", login);
+
+app.get("/logout", logOut);
 
 const data = [];
 
+function logOut(req, res) {
+  // Hapus sesi pengguna
+  req.session.destroy((err) => {
+    if (err) {
+      console.error("Error destroying session:", err);
+      return res.redirect("/");
+    }
+
+    // Redirect ke halaman utama atau halaman login setelah logout
+    res.redirect("/login");
+  });
+}
+
 async function home(req, res) {
+  const isLogin = req.session.isLogin;
+  const user = req.session.user;
   const query = "SELECT * FROM projects";
   const obj = await sequelize.query(query, { type: QueryTypes.SELECT });
   console.log("data project dari database", obj);
-  res.render("index", { data: obj });
+  res.render("index", { data: obj, isLogin, user });
 }
 
 function addprojectView(req, res) {
@@ -108,6 +160,75 @@ async function detailproject(req, res) {
 
 function contact(req, res) {
   res.render("contact");
+}
+
+function loginView(req, res) {
+  res.render("login");
+}
+
+async function login(req, res) {
+  const { email, password } = req.body;
+  const query = `SELECT * FROM users WHERE email='${email}'`;
+  const obj = await sequelize.query(query, { type: QueryTypes.SELECT });
+
+  if (!obj.length) {
+    console.error("user not registered!");
+    req.flash("danger", "Login failed : email is wrong!");
+    return res.redirect("/login");
+  }
+
+  bcrypt.compare(password, obj[0].password, (err, result) => {
+    if (err) {
+      req.flash("danger", "Login failed : internal server error!");
+      console.error("Login : Internal Server Error!");
+      return res.redirect("/login");
+    }
+
+    if (!result) {
+      console.error("Password is wrong!");
+      req.flash("danger", "Login failed : password is wrong!");
+      return res.redirect("/login");
+    }
+
+    console.log("Login success!");
+    req.flash("success", "Login success!");
+    req.session.isLogin = true;
+    req.session.user = {
+      name: obj[0].name,
+      email: obj[0].email,
+    };
+
+    res.redirect("/");
+  });
+}
+
+async function register(req, res) {
+  const { name, email, password } = req.body;
+
+  console.log("Name:", name);
+  console.log("Email:", email);
+  console.log("Password:", password);
+
+  const salt = 10;
+
+  bcrypt.hash(password, salt, async (err, hash) => {
+    if (err) {
+      console.error("Password failed to be encrypted!");
+      req.flash("danger", "Register failed : password failed to be encrypted!");
+      return res.redirect("/register");
+    }
+
+    console.log("Hash result :", hash);
+    const query = `INSERT INTO users(name, email, password) VALUES ('${name}', '${email}','${hash}')`;
+
+    await sequelize.query(query, { type: QueryTypes.INSERT });
+    req.flash("success", "Register success!");
+    res.redirect("/");
+  });
+}
+
+function registerView(req, res) {
+  res.render("register");
 }
 
 app.listen(port, () => {
