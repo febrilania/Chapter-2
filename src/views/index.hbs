@@ -49,11 +49,9 @@
               <a class="nav-link fw-bold" href="/add-myproject">Add Project</a>
             </li>
           </ul>
-          <form class="d-flex" role="search">
-            <a href="/contact" class="btn btn-dark fw-semibold" type="submit">
-              Contact Me
-            </a>
-          </form>
+          <a href="/contact" class="btn btn-dark fw-semibold" type="submit">
+            Contact Me
+          </a>
         </div>
       </div>
     </nav>
@@ -143,32 +141,36 @@
         {{#each data}}
           <div class="col-md-4">
             <div class="container d-flex justify-content-center my-5">
-              <div class="card" style="width: 18rem;">
-                <img src="img/DSC_0137 34.jpg" class="card-img-top" alt="..." />
-                <div class="card-body">
-                  <h5 class="card-title"><a
-                      href="/detail-project/{{@index}}"
-                    >{{this.name}}</a></h5>
-                  <h6 class="card-text">{{this.startDate}}
-                    |
-                    {{this.endDate}}</h6>
-                  <p class="card-text">{{this.description}}</p>
-                  <form
-                    action="/delete-myProject/{{@index}}"
-                    method="post"
-                    style="text-align: center;"
-                  >
-                    <a
-                      style="width: 7.5rem;"
-                      class="btn btn-secondary"
-                      href="update-project/{{@index}}"
-                    >Edit</a>
-                    <button
-                      class="btn btn-danger"
-                      style="width: 7.5rem;"
-                    >Delete</button>
-                  </form>
-                </div>
+              <div class="card py-2 px-2" style="width: 18rem;">
+                <img src="img/{{this.image}}" class="card-img-top" alt="..." />
+                {{! <div class="card-body"> }}
+                <h5 class="card-title"><a
+                    href="/detail-project/{{this.id}}"
+                  >{{this.name}}</a></h5>
+                <h6 class="card-text">{{this.startDate}}
+                  ||
+                  {{this.endDate}}</h6>
+                <p>{{this.technologies}}</p>
+                <p
+                  style="text-align: justify;"
+                  class="card-text"
+                >{{this.description}}</p>
+                <form
+                  action="/delete-myProject/{{this.id}}"
+                  method="post"
+                  style="text-align: center;"
+                >
+                  <a
+                    style="width: 8rem;"
+                    class="btn btn-secondary"
+                    href="update-project/{{this.id}}"
+                  >Edit</a>
+                  <button
+                    class="btn btn-danger"
+                    style="width: 8rem;"
+                  >Delete</button>
+                </form>
+                {{! </div> }}
               </div>
             </div>
           </div>

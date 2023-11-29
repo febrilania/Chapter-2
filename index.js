@@ -4,6 +4,11 @@ const res = require("express/lib/response");
 const path = require("path");
 const app = express();
 const port = 3000;
+const config = require("./src/config/config.json");
+const { QueryTypes } = require("sequelize");
+const { Sequelize } = require("sequelize");
+
+const sequelize = new Sequelize(config.development);
 
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "src/views"));
@@ -28,45 +33,52 @@ app.get("/contact", contact);
 
 const data = [];
 
-function home(req, res) {
-  res.render("index", { data });
+async function home(req, res) {
+  const query = "SELECT * FROM projects";
+  const obj = await sequelize.query(query, { type: QueryTypes.SELECT });
+  console.log("data project dari database", obj);
+  res.render("index", { data: obj });
 }
 
 function addprojectView(req, res) {
   res.render("add-myproject");
 }
 
-function addproject(req, res) {
-  const { name, startDate, endDate, description } = req.body;
+async function addproject(req, res) {
+  const { name, startDate, endDate, description, technologies } = req.body;
+  const image = "brandred.png";
 
-  // console.log("Nama Project :", name);
-  // console.log("Tanggal Mulai : ", startDate);
-  // console.log("Tanggal Selesai : ", endDate);
-  // console.log("Deskripsi : ", description);
-
-  const dataProject = { name, startDate, endDate, description };
-
-  data.unshift(dataProject);
+  const query = `
+    INSERT INTO projects(name, "startDate", "endDate", description, technologies, image)
+    VALUES('${name}', '${startDate}', '${endDate}', '${description}', ARRAY['${technologies}'], '${image}')
+  `;
+  const obj = await sequelize.query(query, { type: QueryTypes.INSERT });
 
   res.redirect("/");
 }
 
-function deleteProject(req, res) {
+async function deleteProject(req, res) {
   const { id } = req.params;
-  data.splice(id, 1);
+  const query = `DELETE FROM projects WHERE id=${id}`;
+  const obj = await sequelize.query(query, { type: QueryTypes.DELETE });
 
   res.redirect("/");
 }
 
-function updateProjectview(req, res) {
+async function updateProjectview(req, res) {
   const { id } = req.params;
-  const dataFilter = data[parseInt(id)];
-  dataFilter.id = parseInt(id);
-  res.render("update-project", { data: dataFilter });
+  // const dataFilter = data[parseInt(id)];
+  // dataFilter.id = parseInt(id);
+  const query = `SELECT * FROM projects WHERE id= ${id}`;
+  const obj = await sequelize.query(query, { type: QueryTypes.SELECT });
+  res.render("update-project", { data: obj[0] });
 }
 
-function updateProject(req, res) {
-  const { id, name, startDate, endDate, description } = req.body;
+async function updateProject(req, res) {
+  const { id, name, startDate, endDate, description, technologies } = req.body;
+
+  const query = `UPDATE projects SET name='${name}', "startDate"='${startDate}', "endDate"='${endDate}', description='${description}', technologies=ARRAY['${technologies}'] WHERE id= ${id}`;
+  const obj = await sequelize.query(query, { type: QueryTypes.UPDATE });
 
   // console.log("Nama Project :", name);
   // console.log("Tanggal Mulai : ", startDate);
@@ -77,21 +89,21 @@ function updateProject(req, res) {
 
   // data.unshift(dataProject);
 
-  data[parseInt(id)] = {
-    name,
-    startDate,
-    endDate,
-    description,
-  };
+  // data[parseInt(id)] = {
+  //   name,
+  //   startDate,
+  //   endDate,
+  //   description,
+  // };
 
   res.redirect("/");
 }
 
-function detailproject(req, res) {
+async function detailproject(req, res) {
   const { id } = req.params;
-  const dataFilter = data[parseInt(id)];
-  dataFilter.id = parseInt(id);
-  res.render("detail-project", { data: dataFilter });
+  const query = `SELECT * FROM projects WHERE id= ${id}`;
+  const obj = await sequelize.query(query, { type: QueryTypes.SELECT });
+  res.render("detail-project", { data: obj[0] });
 }
 
 function contact(req, res) {

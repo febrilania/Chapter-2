@@ -49,22 +49,21 @@
               <a class="nav-link fw-bold" href="/add-myproject">Add Project</a>
             </li>
           </ul>
-          <form class="d-flex" role="search">
+          
             <a href="/contact" class="btn btn-dark fw-semibold" type="submit">
               Contact Me
             </a>
-          </form>
+          
         </div>
       </div>
     </nav>
     <!-- EndNavbar -->
 
-    <div class="detail-project">
-        <div class="detail-project-container">
-            <h1>{{data.id}}|{{data.name}}</h1>
-            <p>{{data.startDate}} || {{data.endDate}}</p>
-            <p>{{data.description}}</p>
-        </div>
+    <div class="container py-3">
+      <h1>{{data.name}}</h1>
+        <p>{{data.startDate}} s/d {{data.endDate}}</p>
+        <img src="/img/{{data.image}}" alt="">
+        <p style="text-align: justify; width:700px">{{data.description}}</p>
     </div>
     <script src="../javascript/bootstrap.bundle.min.js"></script>
     </body>
