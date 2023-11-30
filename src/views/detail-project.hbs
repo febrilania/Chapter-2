@@ -64,9 +64,36 @@
 
     <div class="container py-3">
       <h1>{{data.name}}</h1>
+      <p>Author: {{data.author}}</p>
         <p>{{data.startDate}} s/d {{data.endDate}}</p>
-        <img src="/img/{{data.image}}" alt="">
-        <h4>technologies</h4>
+        <img src="/uploads/{{data.image}}" alt="">
+        <h4 style="margin-top: 20px;">technologies</h4>
+        <div class="d-flex gap-4 justify-content-center">
+              {{#if data.icons.nodeJs}}
+                  <div class="d-flex gap-2">
+                      <img src="{{data.icons.nodeJs}}" class="img-icon">
+                      <h6>Node Js</h6>
+                  </div>
+              {{/if}}
+              {{#if data.icons.nextJs}}
+                  <div class="d-flex gap-2">
+                      <img src="{{data.icons.nextJs}}" class="img-icon">
+                      <h6>Next Js</h6>
+                  </div>
+              {{/if}}
+              {{#if data.icons.reactJs}}
+                  <div class="d-flex gap-2">
+                      <img src="{{data.icons.reactJs}}" class="img-icon">
+                      <h6>React Js</h6>
+                  </div>
+              {{/if}}
+              {{#if data.icons.typeScript}}
+                  <div class="d-flex gap-2">
+                      <img src="{{data.icons.typeScript}}" class="img-icon">
+                      <h6>TypeScript</h6>
+                  </div>
+              {{/if}}
+            </div>
         <p>{{data.technologies}}</p>
         <p style="text-align: justify; width:700px">{{data.description}}</p>
     </div>

@@ -60,7 +60,7 @@
     <!-- Form Add Project -->
     <h3 class="text-center my-3">Add My Project</h3>
     <div class="form my-3 mx-auto" style="width: 70%">
-      <form method="post" action="/add-myproject">
+      <form method="post" action="/add-myproject" enctype="multipart/form-data">
         <div class="mb-3">
           <label for="" class="form-label"> Project Name </label>
           <input type="text" class="form-control" name="name" />
@@ -93,7 +93,9 @@
               <input
                 class="form-check-input"
                 type="checkbox"
-                name="technologies"
+                name="nodeJs"
+                id="nodeJs"
+                data-icon="nodeJs"
                 value="Node JS"
               />
               <label for="" class="form-label"> Node JS </label>
@@ -102,7 +104,9 @@
               <input
                 class="form-check-input"
                 type="checkbox"
-                name="technologies"
+                name="nextJs"
+                id="nextJs"
+                data-icon="nextJs"
                 value="Next JS"
               />
               <label for="" class="form-label"> Next Js </label>
@@ -113,7 +117,9 @@
               <input
                 class="form-check-input"
                 type="checkbox"
-                name="technologies"
+                name="reactJs"
+                id="reactJs"
+                data-icon="reactJs"
                 value="React JS"
               />
               <label for="" class="form-label"> React JS </label>
@@ -122,7 +128,9 @@
               <input
                 class="form-check-input"
                 type="checkbox"
-                name="technologies"
+                name="typeScript"
+                id="typeScript"
+                data-icon="typeScript"
                 value="TypeScript"
               />
               <label for="" class="form-label"> TypeScript </label>

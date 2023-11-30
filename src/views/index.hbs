@@ -15,7 +15,6 @@
       * { font-family: "Poppins", sans-serif; } .nav-link:hover{ color: orange;
       } .btn-dark:hover{ background-color: gray; } .btn-secondary:hover{
       background-color: black; } .btn-danger:hover{ background-color: darkred; }
-      .linkDownload.link-dark:hover{ color: orange; }
 
     </style>
   </head>
@@ -162,20 +161,44 @@
         {{#each data}}
           <div class="col-md-4">
             <div class="container d-flex justify-content-center my-5">
-              <div class="card py-2 px-2" style="width: 18rem;">
-                <img src="img/{{this.image}}" class="card-img-top" alt="..." />
+              <div
+                class="card py-2 px-2"
+                style="width: 18rem; max-height:550px"
+              >
+                <img
+                  src="/uploads/{{this.image}}"
+                  class="card-img-top"
+                  alt="..."
+                  style="max-height: 300px;"
+                />
                 {{! <div class="card-body"> }}
                 <h5 class="card-title my-3"><a
-                    class="nav-link"
+                    class="nav-link overflow-hidden"
                     href="/detail-project/{{this.id}}"
                   >{{this.name}}</a></h5>
                 <h6 class="card-text">{{this.startDate}}
                   ||
                   {{this.endDate}}</h6>
-                <p>{{this.technologies}}</p>
+                <div class="d-flex gap-2 py-1" id="icon">
+                  {{#if this.icons.nodeJs}}
+                    <img style="width: 30px;" src="{{this.icons.nodeJs}}" />
+                  {{/if}}
+
+                  {{#if this.icons.nextJs}}
+                    <img style="width: 30px;" src="{{this.icons.nextJs}}" />
+                  {{/if}}
+
+                  {{#if this.icons.reactJs}}
+                    <img style="width: 30px;" src="{{this.icons.reactJs}}" />
+                  {{/if}}
+
+                  {{#if this.icons.typeScript}}
+                    <img style="width: 30px;" src="{{this.icons.typeScript}}" />
+                  {{/if}}
+                </div>
                 <p
-                  style="text-align: justify;"
-                  class="card-text"
+                  style="text-align: justify; max-height:40px"
+                  class="card-text overflow-auto"
                 >{{this.description}}</p>
                 <form
                   action="/delete-myProject/{{this.id}}"

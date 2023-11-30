@@ -62,7 +62,11 @@
     <!-- Form Add Project -->
     <h3 class="text-center my-3">Update Project</h3>
     <div class="form my-3 mx-auto" style="width: 70%">
-      <form method="post" action="/update-project">
+      <form
+        method="post"
+        action="/update-project"
+        enctype="multipart/form-data"
+      >
         <div class="mb-3">
           <input type="hidden" name="id" value="{{data.id}}" />
           <label for="" class="form-label"> Project Name </label>
@@ -111,7 +115,9 @@
               <input
                 class="form-check-input"
                 type="checkbox"
-                name="technologies"
+                name="nodeJs"
+                id="nodeJs"
+                data-icon="nodeJs"
                 value="Node Js"
               />
               <label for="" class="form-label"> Node JS </label>
@@ -120,7 +126,9 @@
               <input
                 class="form-check-input"
                 type="checkbox"
-                name="technologies"
+                name="nextJs"
+                id="nextJs"
+                data-icon="nextJs"
                 value="Next JS"
               />
               <label for="" class="form-label"> Next Js </label>
@@ -131,7 +139,9 @@
               <input
                 class="form-check-input"
                 type="checkbox"
-                name="technologies"
+                name="reactJs"
+                id="reactJs"
+                data-icon="reactJs"
                 value="React JS"
               />
               <label for="" class="form-label"> React JS </label>
@@ -140,7 +150,9 @@
               <input
                 class="form-check-input"
                 type="checkbox"
-                name="technologies"
+                name="typeScript"
+                id="typeScript"
+                data-icon="typeScript"
                 value="TypeScript"
               />
               <label for="" class="form-label"> TypeScript </label>
@@ -149,7 +161,7 @@
         </div>
         <div class="mb-3">
           <label for="" class="form-label">Upload Image</label>
-          <input type="file" class="form-control" />
+          <input type="file" class="form-control" name="image" />
         </div>
         <div class="d-flex justify-content-end">
           <button
